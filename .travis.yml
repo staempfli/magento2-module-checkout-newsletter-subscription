@@ -7,7 +7,7 @@ addons:
   code_climate:
     repo_token: $CC_TEST_REPORTER_ID
 script:
-  - ./vendor/bin/phpcs Model/ Block/ --runtime-set ignore_warnings_on_exit true --runtime-set installed_paths vendor/magento/marketplace-eqp --standard=MEQP2
+  - ./vendor/bin/phpcs Model/ Observer/ --runtime-set ignore_warnings_on_exit true --runtime-set installed_paths vendor/magento/marketplace-eqp --standard=MEQP2
   - ./vendor/bin/phpunit
   - ./vendor/bin/test-reporter
 
