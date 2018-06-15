@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright © 2018 Stämpfli AG. All rights reserved.
+ * @author marcel.hauri@staempfli.com
+ */
 
 namespace Staempfli\CheckoutNewsletterSubscription\Model;
 
@@ -37,7 +41,7 @@ class NewsletterSubscriptionManagement implements NewsletterSubscriptionManageme
      */
     public function subscribe($cartId, NewsletterSubscriptionInterface $newsletterSubscription)
     {
-        if ((bool) $newsletterSubscription->getSubscribe()) {
+        if ((bool)$newsletterSubscription->getSubscribe()) {
             $quote = $this->getQuoteByCardId($cartId);
 
             try {
