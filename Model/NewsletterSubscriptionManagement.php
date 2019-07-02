@@ -6,6 +6,7 @@
 
 namespace Staempfli\CheckoutNewsletterSubscription\Model;
 
+use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask;
 use Staempfli\CheckoutNewsletterSubscription\Api\Data\NewsletterSubscriptionInterface;
 use Staempfli\CheckoutNewsletterSubscription\Api\NewsletterSubscriptionManagementInterface;
 use Staempfli\CheckoutNewsletterSubscription\Model\Data\NewsletterSubscription;
@@ -23,13 +24,19 @@ class NewsletterSubscriptionManagement implements NewsletterSubscriptionManageme
      * @var QuoteIdMaskFactory
      */
     private $quoteIdMaskFactory;
+    /**
+     * @var QuoteIdMask
+     */
+    private $quoteIdMaskResourceModel;
 
     public function __construct(
+        QuoteIdMask $quoteIdMaskResourceModel,
         CartRepositoryInterface $cartRepository,
         QuoteIdMaskFactory $quoteIdMaskFactory
     ) {
         $this->cartRepository = $cartRepository;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
+        $this->quoteIdMaskResourceModel = $quoteIdMaskResourceModel;
     }
 
     /**
@@ -63,7 +70,8 @@ class NewsletterSubscriptionManagement implements NewsletterSubscriptionManageme
         try {
             return $this->cartRepository->getActive($cartId);
         } catch (\Exception $e) {
-            $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
+            $quoteIdMask = $this->quoteIdMaskFactory->create();
+            $this->quoteIdMaskResourceModel->load($quoteIdMask, $cartId, 'masked_id');
             return $this->cartRepository->getActive($quoteIdMask->getQuoteId());
         }
     }
