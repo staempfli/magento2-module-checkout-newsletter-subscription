@@ -10,7 +10,7 @@ define([
         while (!context.querySelector('[type=radio]')) {
             context = context.parentNode;
         }
-        return context.querySelector('[type=radio]').id
+        return context.querySelector('[type=radio]').id;
     }
 
     return Component.extend({
@@ -29,7 +29,6 @@ define([
          * @param {Object} context - the ko context
          */
         getCheckboxName: function (context) {
-
             return 'newsletter[' + getContextId(context) + ']';
         }
     });

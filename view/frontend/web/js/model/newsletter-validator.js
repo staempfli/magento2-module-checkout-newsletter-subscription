@@ -12,7 +12,7 @@ define(
         'use strict';
 
         function getNewsletterSubscribtionStatus() {
-            var contexts = document.querySelectorAll('[type=radio]');
+            var contexts = document.querySelectorAll('#checkout-payment-method-load [type=radio]');
             var i;
             for (i = 0; i < contexts.length; i++) {
                 var checkbox = document.querySelector('#newsletter_' + contexts[i].id);
