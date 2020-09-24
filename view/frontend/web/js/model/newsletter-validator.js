@@ -11,10 +11,22 @@ define(
     function ($, customer, quote, urlBuilder, errorProcessor, urlFormatter) {
         'use strict';
 
+        function getNewsletterSubscribtionStatus() {
+            var contexts = document.querySelectorAll('#checkout-payment-method-load [type=radio]');
+            var i;
+            for (i = 0; i < contexts.length; i++) {
+                var checkbox = document.querySelector('#newsletter_' + contexts[i].id);
+                if (checkbox && checkbox.checked) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         return {
             validate: function () {
                 var isCustomer = customer.isLoggedIn();
-                var status = $('#newsletter-subscription').is(':checked');
+                var status = getNewsletterSubscribtionStatus();
                 var quoteId = quote.getQuoteId();
                 var url;
 
